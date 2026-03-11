@@ -11,9 +11,12 @@ from pydantic import BaseModel, Field, field_validator
 class BankAccountBase(BaseModel):
     """Base bank account schema"""
     bank_name: str = Field(..., min_length=2, max_length=100)
+    bank_code: Optional[str] = Field(None, max_length=10)
     account_number: str = Field(..., min_length=10, max_length=10)
-    account_name: str = Field(..., min_length=2, max_length=255)
-    account_type: str = Field(default="Savings", pattern="^(Savings|Current|Domiciliary|Corporate)$")
+    account_name: Optional[str] = Field(None, min_length=2, max_length=255)
+    account_type: str = Field(default="savings")
+    currency: str = Field(default="NGN", max_length=3)
+    notes: Optional[str] = Field(None, max_length=500)
     
     @field_validator('account_number')
     @classmethod
@@ -25,9 +28,7 @@ class BankAccountBase(BaseModel):
 
 class BankAccountCreate(BankAccountBase):
     """Bank account creation schema"""
-    bank_code: Optional[str] = Field(None, max_length=10)
-    currency: str = Field(default="NGN", max_length=3)
-    notes: Optional[str] = Field(None, max_length=500)
+    pass
 
 
 class BankAccountUpdate(BaseModel):
