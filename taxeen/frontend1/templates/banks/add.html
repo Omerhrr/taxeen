@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Add Bank Account{% endblock %}
+
+{% block content %}
+<div class="p-6 max-w-2xl mx-auto">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <nav class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
+            <a href="{{ url_for('banks_list') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Bank Accounts</a>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900 dark:text-white">Add New</span>
+        </nav>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Add Bank Account</h1>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Connect a new bank account to your Taxeen profile
+        </p>
+    </div>
+    
+    <!-- Form -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <form method="POST" action="{{ url_for('add_bank') }}" class="space-y-6">
+            <!-- Bank Selection -->
+            <div>
+                <label for="bank_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Bank Name
+                </label>
+                <select id="bank_name" 
+                        name="bank_name" 
+                        required
+                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <option value="">Select a bank</option>
+                    {% for bank_name, bank_code in banks %}
+                    <option value="{{ bank_name }}">{{ bank_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Account Number -->
+            <div>
+                <label for="account_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Account Number
+                </label>
+                <input type="text" 
+                       id="account_number" 
+                       name="account_number" 
+                       required
+                       maxlength="10"
+                       pattern="[0-9]{10}"
+                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                       placeholder="0123456789">
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    Enter your 10-digit NUBAN account number
+                </p>
+            </div>
+            
+            <!-- Account Name -->
+            <div>
+                <label for="account_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Account Name
+                </label>
+                <input type="text" 
+                       id="account_name" 
+                       name="account_name" 
+                       required
+                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                       placeholder="JOHN DOE">
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    As it appears on your bank statement
+                </p>
+            </div>
+            
+            <!-- Account Type -->
+            <div>
+                <label for="account_type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Account Type
+                </label>
+                <select id="account_type" 
+                        name="account_type" 
+                        required
+                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <option value="Savings">Savings Account</option>
+                    <option value="Current">Current Account</option>
+                    <option value="Domiciliary">Domiciliary Account</option>
+                    <option value="Corporate">Corporate Account</option>
+                </select>
+            </div>
+            
+            <!-- Initial Balance (Optional) -->
+            <div>
+                <label for="initial_balance" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Current Balance (Optional)
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500">₦</span>
+                    </div>
+                    <input type="number" 
+                           id="initial_balance" 
+                           name="initial_balance" 
+                           step="0.01"
+                           min="0"
+                           class="block w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                           placeholder="0.00">
+                </div>
+                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    Enter your current account balance for accurate tracking
+                </p>
+            </div>
+            
+            <!-- Notes -->
+            <div>
+                <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Notes (Optional)
+                </label>
+                <textarea id="notes" 
+                          name="notes" 
+                          rows="3"
+                          class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          placeholder="Any additional notes about this account..."></textarea>
+            </div>
+            
+            <!-- Actions -->
+            <div class="flex items-center justify-end space-x-4 pt-4">
+                <a href="{{ url_for('banks_list') }}" 
+                   class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Cancel
+                </a>
+                <button type="submit" 
+                        class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                    Add Bank Account
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Info Card -->
+    <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+        <div class="flex items-start">
+            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+                <h3 class="text-sm font-medium text-blue-800 dark:text-blue-300">Your data is secure</h3>
+                <p class="text-sm text-blue-700 dark:text-blue-400 mt-1">
+                    We use bank-grade encryption to protect your account information. Your account number is masked and never displayed in full.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyc
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (for any frontend builds)
+node_modules/
+.next/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Uploaded files (processed statements are stored as JSON)
+uploads/
+*.pdf
+
+# Sensitive data
+*.pem
+*.key
+secrets/

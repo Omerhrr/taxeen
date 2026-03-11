@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Subscription - {{ app_name }}{% endblock %}
+
+{% block guest_content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl w-full">
+        <!-- Logo and Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-emerald-600 dark:text-emerald-500">{{ app_name }}</h1>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">Choose your subscription plan</p>
+        </div>
+        
+        <!-- Pricing Cards -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Basic Plan -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border-2 border-transparent hover:border-emerald-500 transition-colors">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Basic</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">For individuals</p>
+                <div class="mt-4">
+                    <span class="text-4xl font-bold text-gray-900 dark:text-white">₦2,500</span>
+                    <span class="text-gray-500 dark:text-gray-400">/year</span>
+                </div>
+                <ul class="mt-6 space-y-3">
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        3 Bank Accounts
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Basic Tax Reports
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Email Support
+                    </li>
+                </ul>
+                <form method="POST" action="{{ url_for('payment') }}" class="mt-6">
+                    <input type="hidden" name="plan" value="basic">
+                    <button type="submit" class="w-full py-3 px-4 border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 font-medium rounded-lg transition-colors">
+                        Select Basic
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Premium Plan (Recommended) -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border-2 border-emerald-500 relative transform scale-105">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    Recommended
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Premium</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">For professionals</p>
+                <div class="mt-4">
+                    <span class="text-4xl font-bold text-emerald-600">₦5,000</span>
+                    <span class="text-gray-500 dark:text-gray-400">/year</span>
+                </div>
+                <ul class="mt-6 space-y-3">
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Unlimited Bank Accounts
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Full Tax Reports
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Priority Support
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Tax Filing Assistance
+                    </li>
+                </ul>
+                <form method="POST" action="{{ url_for('payment') }}" class="mt-6">
+                    <input type="hidden" name="plan" value="premium">
+                    <button type="submit" class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+                        Select Premium
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Enterprise Plan -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border-2 border-transparent hover:border-emerald-500 transition-colors">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Enterprise</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">For businesses</p>
+                <div class="mt-4">
+                    <span class="text-4xl font-bold text-gray-900 dark:text-white">₦15,000</span>
+                    <span class="text-gray-500 dark:text-gray-400">/year</span>
+                </div>
+                <ul class="mt-6 space-y-3">
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Everything in Premium
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        API Access
+                    </li>
+                    <li class="flex items-center text-gray-600 dark:text-gray-400">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        Dedicated Manager
+                    </li>
+                </ul>
+                <form method="POST" action="{{ url_for('payment') }}" class="mt-6">
+                    <input type="hidden" name="plan" value="enterprise">
+                    <button type="submit" class="w-full py-3 px-4 border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 font-medium rounded-lg transition-colors">
+                        Select Enterprise
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                All plans include a 7-day money-back guarantee. Payment powered by Paystack.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

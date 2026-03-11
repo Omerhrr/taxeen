@@ -1,0 +1,11 @@
+# SSL Certificate Directory
+# Place your SSL certificates here:
+# - taxeen.crt (SSL certificate)
+# - taxeen.key (Private key)
+# - taxeen.chain.crt (Certificate chain, if applicable)
+#
+# For Let's Encrypt, use certbot to generate certificates:
+# certbot certonly --webroot -w /var/www/certbot -d taxeen.com -d www.taxeen.com
+#
+# IMPORTANT: Never commit actual SSL certificates to version control!
+# Add *.crt and *.key to .gitignore

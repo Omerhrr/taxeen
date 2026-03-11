@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+    
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Flowbite -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        .htmx-request .htmx-indicator { display: inline-block; }
+        .htmx-request .htmx-hide { display: none; }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-900" x-data="{ sidebarOpen: true, darkMode: false }">
+    
+    {% if session.user %}
+    <!-- Authenticated Layout -->
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside id="sidebar" 
+               class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full transition-transform bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 lg:translate-x-0"
+               :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }">
+            
+            <div class="h-full px-3 py-4 overflow-y-auto">
+                <!-- Logo -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center ps-2.5 mb-5">
+                    <span class="self-center text-xl font-bold text-emerald-600 dark:text-emerald-500">{{ app_name }}</span>
+                </a>
+                
+                <!-- Navigation -->
+                <nav class="space-y-1">
+                    <!-- Dashboard -->
+                    <a href="{{ url_for('dashboard') }}" 
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span class="ms-3">Dashboard</span>
+                    </a>
+                    
+                    <!-- Banks Section -->
+                    <div x-data="{ banksOpen: false }">
+                        <button @click="banksOpen = !banksOpen" 
+                                class="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            <span class="ms-3 flex-1 text-left">Banks</span>
+                            <svg class="w-4 h-4" :class="{ 'rotate-180': banksOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <ul x-show="banksOpen" class="py-2 space-y-1">
+                            <li>
+                                <a href="{{ url_for('banks_list') }}" class="flex items-center p-2 ps-10 text-gray-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    All Banks
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('add_bank') }}" class="flex items-center p-2 ps-10 text-gray-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    Add Bank
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Transactions -->
+                    <a href="{{ url_for('transactions_list') }}" 
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        <span class="ms-3">Transactions</span>
+                    </a>
+                    
+                    <!-- Uploads -->
+                    <a href="{{ url_for('uploads') }}" 
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                        <span class="ms-3">Uploads</span>
+                    </a>
+                    
+                    <!-- Reports -->
+                    <a href="{{ url_for('reports') }}" 
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span class="ms-3">Tax Reports</span>
+                    </a>
+                    
+                    <!-- Settings -->
+                    <a href="{{ url_for('settings') }}" 
+                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="ms-3">Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="lg:ml-64 flex-1 flex flex-col">
+            <!-- Top Header -->
+            <header class="sticky top-0 z-30 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <div class="px-4 py-3 flex items-center justify-between">
+                    <!-- Mobile menu button -->
+                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="flex items-center space-x-4">
+                        <!-- User Menu -->
+                        <div class="relative" x-data="{ userMenuOpen: false }">
+                            <button @click="userMenuOpen = !userMenuOpen" class="flex items-center space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-medium">
+                                    {{ session.user.get('first_name', 'U')[0] }}
+                                </div>
+                                <span class="hidden md:block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                    {{ session.user.get('first_name', '') }} {{ session.user.get('last_name', '') }}
+                                </span>
+                            </button>
+                            
+                            <div x-show="userMenuOpen" @click.away="userMenuOpen = false"
+                                 class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg dark:bg-gray-700 py-1">
+                                <a href="{{ url_for('settings') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600">Settings</a>
+                                <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-600">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Page Content -->
+            <main class="flex-1 p-6">
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="mb-4 p-4 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200{% elif category == 'success' %}bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200{% elif category == 'warning' %}bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200{% else %}bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200{% endif %}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% else %}
+    <!-- Guest Layout -->
+    <div class="min-h-full flex flex-col">
+        {% block guest_content %}{% endblock %}
+    </div>
+    {% endif %}
+    
+    <!-- Flowbite JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
