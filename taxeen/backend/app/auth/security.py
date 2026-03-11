@@ -4,7 +4,7 @@ Argon2 password hashing and JWT token management
 """
 
 from argon2 import PasswordHasher
-from argon2.exceptions import VerifyMismatchError, InvalidHashError
+from argon2.exceptions import VerifyMismatchError, VerificationError, InvalidHashError
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 from jose import jwt, JWTError
@@ -55,7 +55,7 @@ def verify_password(hashed_password: str, plain_password: str) -> bool:
     try:
         ph.verify(hashed_password, plain_password)
         return True
-    except (VerifyMismatchError, InvalidHashError):
+    except (VerifyMismatchError, VerificationError, InvalidHashError):
         return False
 
 
