@@ -5,7 +5,7 @@ Handles user registration with NIN encryption
 
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text
 from sqlalchemy.orm import relationship
-from app.database import Base, TimestampMixin
+from app.base import Base, TimestampMixin
 from datetime import datetime
 
 
