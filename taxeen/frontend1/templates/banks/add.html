@@ -30,7 +30,7 @@
                 <select id="bank_name" 
                         name="bank_name" 
                         required
-                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <option value="">Select a bank</option>
                     {% for bank_name, bank_code in banks %}
                     <option value="{{ bank_name }}">{{ bank_name }}</option>
@@ -49,7 +49,7 @@
                        required
                        maxlength="10"
                        pattern="[0-9]{10}"
-                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                        placeholder="0123456789">
                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                     Enter your 10-digit NUBAN account number
@@ -65,7 +65,7 @@
                        id="account_name" 
                        name="account_name" 
                        required
-                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                       class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                        placeholder="JOHN DOE">
                 <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                     As it appears on your bank statement
@@ -80,7 +80,7 @@
                 <select id="account_type" 
                         name="account_type" 
                         required
-                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <option value="Savings">Savings Account</option>
                     <option value="Current">Current Account</option>
                     <option value="Domiciliary">Domiciliary Account</option>
@@ -118,7 +118,7 @@
                 <textarea id="notes" 
                           name="notes" 
                           rows="3"
-                          class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          class="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                           placeholder="Any additional notes about this account..."></textarea>
             </div>
             
@@ -129,7 +129,7 @@
                     Cancel
                 </a>
                 <button type="submit" 
-                        class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                        class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium">
                     Add Bank Account
                 </button>
             </div>

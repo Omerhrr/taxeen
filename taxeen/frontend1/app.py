@@ -332,7 +332,8 @@ def logout():
 def dashboard():
     """Main dashboard"""
     user = session.get('user', MOCK_USER)
-    banks = MOCK_BANKS
+    # Use session-stored banks or default mock banks
+    banks = session.get('mock_banks', MOCK_BANKS)
     transactions = MOCK_TRANSACTIONS[:10]
     
     # Calculate summary
@@ -374,12 +375,16 @@ def dashboard():
 @login_required
 def banks_list():
     """List all bank accounts"""
-    result = api_call('/bank-accounts', token=session.get('token'))
-    
-    if 'error' in result:
-        banks = MOCK_BANKS
+    # Check if using mock mode
+    if session.get('token') == 'mock-jwt-token':
+        # Use session-stored banks or default mock banks
+        banks = session.get('mock_banks', MOCK_BANKS)
     else:
-        banks = result
+        result = api_call('/bank-accounts', token=session.get('token'))
+        if 'error' in result:
+            banks = session.get('mock_banks', MOCK_BANKS)
+        else:
+            banks = result
     
     return render_template('banks/list.html', banks=banks)
 
@@ -395,12 +400,30 @@ def add_bank():
             'account_type': request.form.get('account_type'),
         }
         
-        result = api_call('/bank-accounts', 'POST', data, token=session.get('token'))
-        
-        if 'error' in result:
+        # Check if using mock mode
+        if session.get('token') == 'mock-jwt-token':
+            # Add to mock banks in session
+            mock_banks = session.get('mock_banks', MOCK_BANKS.copy())
+            new_id = max([b['id'] for b in mock_banks], default=0) + 1
+            new_bank = {
+                'id': new_id,
+                'bank_name': data['bank_name'],
+                'account_number': '****' + data['account_number'][-4:] if data['account_number'] else '****',
+                'account_name': data['account_name'],
+                'account_type': data['account_type'],
+                'current_balance': float(request.form.get('initial_balance', 0) or 0),
+                'is_active': True,
+                'last_sync': datetime.now().isoformat()
+            }
+            mock_banks.append(new_bank)
+            session['mock_banks'] = mock_banks
             flash('Bank account added successfully!', 'success')
         else:
-            flash('Bank account added successfully!', 'success')
+            result = api_call('/bank-accounts', 'POST', data, token=session.get('token'))
+            if 'error' in result:
+                flash('Bank account added successfully!', 'success')
+            else:
+                flash('Bank account added successfully!', 'success')
         return redirect(url_for('banks_list'))
     
     # Nigerian banks list
@@ -430,14 +453,24 @@ def add_bank():
 @login_required
 def bank_detail(bank_id):
     """View bank account details"""
-    result = api_call(f'/bank-accounts/{bank_id}', token=session.get('token'))
-    
-    if 'error' in result:
-        bank = next((b for b in MOCK_BANKS if b['id'] == bank_id), MOCK_BANKS[0])
-        transactions = [t for t in MOCK_TRANSACTIONS if t['bank_account_id'] == bank_id][:20]
+    # Check if using mock mode
+    if session.get('token') == 'mock-jwt-token':
+        mock_banks = session.get('mock_banks', MOCK_BANKS)
+        bank = next((b for b in mock_banks if b['id'] == bank_id), None)
+        transactions = [t for t in MOCK_TRANSACTIONS if t.get('bank_account_id') == bank_id][:20]
     else:
-        bank = result
-        transactions = result.get('transactions', [])
+        result = api_call(f'/bank-accounts/{bank_id}', token=session.get('token'))
+        if 'error' in result:
+            mock_banks = session.get('mock_banks', MOCK_BANKS)
+            bank = next((b for b in mock_banks if b['id'] == bank_id), mock_banks[0] if mock_banks else None)
+            transactions = [t for t in MOCK_TRANSACTIONS if t.get('bank_account_id') == bank_id][:20]
+        else:
+            bank = result
+            transactions = result.get('transactions', [])
+    
+    if not bank:
+        flash('Bank account not found', 'error')
+        return redirect(url_for('banks_list'))
     
     return render_template('banks/detail.html', bank=bank, transactions=transactions)
 
