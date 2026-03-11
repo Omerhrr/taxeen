@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}Features - {{ app_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg hero-pattern pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Powerful Features for Nigerian Tax Payers</h1>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">Everything you need to calculate, track, and optimize your personal income tax</p>
+    </div>
+</section>
+
+<!-- Main Features -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Bank Statement Upload -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Bank Statement Upload</h3>
+                <p class="text-gray-600">Upload PDF statements from any Nigerian bank. We support GTBank, Access, UBA, Zenith, First Bank and more.</p>
+            </div>
+
+            <!-- Smart Transaction Extraction -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Smart Extraction</h3>
+                <p class="text-gray-600">Automatically extract transactions from your statements with our advanced PDF parser technology.</p>
+            </div>
+
+            <!-- AI Classification -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">AI Classification</h3>
+                <p class="text-gray-600">Our AI automatically categorizes your transactions into income, expenses, and tax-deductible items.</p>
+            </div>
+
+            <!-- Nigerian Tax Rules -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">2026 Tax Rates</h3>
+                <p class="text-gray-600">Built with the latest Nigerian Personal Income Tax Act (PITA) rates and regulations for accurate calculations.</p>
+            </div>
+
+            <!-- Multi-Bank Support -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Multiple Banks</h3>
+                <p class="text-gray-600">Connect and manage multiple bank accounts. Get a consolidated view of all your finances in one place.</p>
+            </div>
+
+            <!-- Secure & Private -->
+            <div class="p-8 rounded-2xl bg-gray-50 hover:bg-emerald-50 transition-colors">
+                <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Bank-Grade Security</h3>
+                <p class="text-gray-600">Your data is protected with AES-256 encryption. Bank statements are deleted after processing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Features -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Detailed Tax Calculations</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Understanding how Nigerian tax works</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Progressive Tax Bands</h3>
+                <p class="text-gray-600 mb-6">Nigeria uses a progressive tax system where your income is taxed in bands. Each band has a different rate, so you only pay higher rates on the portion of income that falls within that band.</p>
+                
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-700">First ₦800,000 is tax-free</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-700">Automated calculation of each band</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-700">Consolidated Relief Allowance included</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-emerald-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="text-gray-700">Pension contributions deducted</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <h4 class="font-bold text-gray-900 mb-4">Example Calculation</h4>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Gross Annual Income</span>
+                        <span class="font-medium">₦10,000,000</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Consolidated Relief</span>
+                        <span class="font-medium text-green-600">- ₦2,000,000</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-100">
+                        <span class="text-gray-600">Pension Contribution</span>
+                        <span class="font-medium text-green-600">- ₦800,000</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-100 font-medium">
+                        <span class="text-gray-900">Taxable Income</span>
+                        <span>₦7,200,000</span>
+                    </div>
+                    <div class="flex justify-between py-2 bg-emerald-50 rounded px-2">
+                        <span class="text-emerald-700 font-bold">Tax Payable</span>
+                        <span class="text-emerald-700 font-bold">₦1,166,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 gradient-bg hero-pattern">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
+        <p class="text-emerald-100 mb-8">Join thousands of Nigerians who trust Taxeen for their tax calculations</p>
+        <a href="#" class="inline-block px-8 py-4 bg-white text-emerald-600 font-bold rounded-lg hover:bg-gray-100 transition-colors">
+            Start Your Free Trial
+        </a>
+    </div>
+</section>
+{% endblock %}

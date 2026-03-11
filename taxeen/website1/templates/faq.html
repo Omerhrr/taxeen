@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ - {{ app_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg hero-pattern pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">Find answers to common questions about Taxeen</p>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="space-y-4">
+            {% for faq in faqs %}
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">{{ faq.q }}</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    {{ faq.a }}
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Additional FAQs -->
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">How long does it take to process a bank statement?</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    Most bank statements are processed within 2-5 minutes. Larger statements with many transactions may take up to 15 minutes. You'll receive a notification when processing is complete.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">Can I edit transaction classifications?</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    Yes! While our AI is highly accurate, you can manually reclassify any transaction. Just click on a transaction and select the correct category. The system learns from your corrections to improve future classifications.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">What if I have multiple sources of income?</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    Taxeen handles multiple income sources seamlessly. Connect all your bank accounts, and we'll aggregate all your income streams for a comprehensive tax calculation. This includes salary, business income, investment returns, and more.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">Can Taxeen help me file my taxes with FIRS?</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    Taxeen calculates your tax liability and provides detailed reports. While we don't directly file with FIRS, our reports are formatted to make self-filing straightforward. Premium and Enterprise users get access to tax professionals who can assist with filing.
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-6" x-data="{ open: false }">
+                <button @click="open = !open" class="w-full flex items-center justify-between text-left">
+                    <h3 class="font-semibold text-gray-900 pr-4">What deductions can I claim?</h3>
+                    <svg class="w-5 h-5 text-gray-500 transform transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-4 text-gray-600">
+                    Taxeen automatically identifies potential deductions including: pension contributions, NHF contributions, health insurance premiums, life insurance premiums, and charitable donations. Our AI flags these for your review during transaction classification.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Still Have Questions -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Still Have Questions?</h2>
+        <p class="text-gray-600 mb-8">Our support team is here to help you</p>
+        <a href="{{ url_for('contact') }}" class="inline-block px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition-colors">
+            Contact Support
+        </a>
+    </div>
+</section>
+
+<!-- Alpine.js Collapse Plugin -->
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.directive('collapse', (el, { expression }, { effect, evaluateLater }) => {
+            let show = evaluateLater(expression || 'true')
+            
+            effect(() => {
+                show(value => {
+                    if (value) {
+                        el.style.height = 'auto'
+                        el.style.overflow = 'visible'
+                    } else {
+                        el.style.height = '0'
+                        el.style.overflow = 'hidden'
+                    }
+                })
+            })
+        })
+    })
+</script>
+{% endblock %}

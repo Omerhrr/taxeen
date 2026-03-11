@@ -23,6 +23,16 @@ def currency_format(value):
     except (ValueError, TypeError):
         return "₦0"
 
+@app.template_filter('number_format')
+def number_format(value):
+    """Format number with commas"""
+    if value is None:
+        return "0"
+    try:
+        return f"{int(value):,}"
+    except (ValueError, TypeError):
+        return "0"
+
 @app.context_processor
 def inject_globals():
     return {

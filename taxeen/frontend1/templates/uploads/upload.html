@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Statement - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Upload Bank Statement</h1>
+    <p class="text-gray-600 dark:text-gray-400">Upload your bank statement PDF to extract transactions</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Upload Form -->
+    <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+        <form action="{{ url_for('process_upload') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <!-- Bank Selection -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Bank</label>
+                <select name="bank_id" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                    <option value="">Choose a bank...</option>
+                    {% for bank in banks %}
+                    <option value="{{ bank.id }}">{{ bank.bank_name }} ({{ bank.account_number }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- File Upload -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bank Statement PDF</label>
+                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-emerald-500 transition-colors" x-data="{ fileName: '' }" @drop.prevent @dragover.prevent>
+                    <input type="file" name="statement" accept=".pdf" required class="hidden" id="file-input" @change="fileName = $event.target.files[0]?.name">
+                    <label for="file-input" class="cursor-pointer">
+                        <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="text-gray-600 dark:text-gray-400" x-text="fileName || 'Click to upload or drag and drop'"></p>
+                        <p class="text-sm text-gray-500 dark:text-gray-500 mt-1">PDF files only, max 10MB</p>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Statement Period -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Period Start</label>
+                    <input type="date" name="period_start" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Period End</label>
+                    <input type="date" name="period_end" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500">
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+                Upload and Process
+            </button>
+        </form>
+    </div>
+
+    <!-- Instructions -->
+    <div class="space-y-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Supported Banks</h3>
+            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>Guaranty Trust Bank</li>
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>Access Bank</li>
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>United Bank for Africa</li>
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>Zenith Bank</li>
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>First Bank</li>
+                <li class="flex items-center"><span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>And more...</li>
+            </ul>
+        </div>
+
+        <div class="bg-emerald-50 dark:bg-emerald-900/20 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-emerald-800 dark:text-emerald-400 mb-2">How it works</h3>
+            <ol class="space-y-2 text-sm text-emerald-700 dark:text-emerald-300">
+                <li>1. Upload your statement PDF</li>
+                <li>2. We extract all transactions</li>
+                <li>3. AI classifies each transaction</li>
+                <li>4. Review and confirm</li>
+            </ol>
+        </div>
+
+        <a href="{{ url_for('upload_history') }}" class="block text-center py-3 px-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+            View Upload History
+        </a>
+    </div>
+</div>
+{% endblock %}

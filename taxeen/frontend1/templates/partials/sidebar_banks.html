@@ -1,0 +1,11 @@
+<!-- Sidebar Banks Partial - Used for HTMX dynamic updates -->
+{% for bank in banks %}
+<li>
+    <a href="{{ url_for('bank_detail', bank_id=bank.id) }}" class="flex items-center p-2 ps-10 text-gray-600 rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
+        <span class="truncate">{{ bank.bank_name }}</span>
+    </a>
+</li>
+{% else %}
+<li class="p-2 ps-10 text-gray-400 text-sm">No banks added</li>
+{% endfor %}

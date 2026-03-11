@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Upload History - {{ app_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex items-center justify-between">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Upload History</h1>
+        <p class="text-gray-600 dark:text-gray-400">View your previously uploaded bank statements</p>
+    </div>
+    <a href="{{ url_for('uploads') }}" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+        Upload New
+    </a>
+</div>
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <table class="w-full">
+        <thead class="bg-gray-50 dark:bg-gray-700/50">
+            <tr>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">File Name</th>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank</th>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Period</th>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Transactions</th>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+                <th class="px-6 py-4 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Uploaded</th>
+                <th class="px-6 py-4 text-right text-sm font-medium text-gray-500 dark:text-gray-400">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            {% for upload in uploads %}
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ upload.filename }}</span>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{{ upload.bank_name }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{{ upload.date_range }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900 dark:text-white font-medium">{{ upload.transactions_count }}</td>
+                <td class="px-6 py-4">
+                    {% if upload.status == 'processed' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                        Processed
+                    </span>
+                    {% elif upload.status == 'processing' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+                        Processing
+                    </span>
+                    {% else %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                        Failed
+                    </span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{{ upload.uploaded_at | datetime_format }}</td>
+                <td class="px-6 py-4 text-right">
+                    <button class="text-emerald-600 hover:text-emerald-700 dark:text-emerald-500 text-sm font-medium mr-3">View</button>
+                    <button class="text-red-600 hover:text-red-700 dark:text-red-400 text-sm font-medium">Delete</button>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                    <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p>No uploads yet. Upload your first bank statement to get started.</p>
+                    <a href="{{ url_for('uploads') }}" class="inline-block mt-4 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                        Upload Statement
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

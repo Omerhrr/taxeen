@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - {{ app_name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg hero-pattern pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Taxeen Blog</h1>
+        <p class="text-xl text-emerald-100 max-w-2xl mx-auto">Insights, tips, and updates on Nigerian taxation</p>
+    </div>
+</section>
+
+<!-- Blog Posts -->
+<section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in posts %}
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-emerald-400 to-teal-500"></div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-500 mb-2">{{ post.date }}</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-emerald-600">
+                        <a href="#">{{ post.title }}</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
+                    <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Read more →</a>
+                </div>
+            </article>
+            {% endfor %}
+
+            <!-- Additional Mock Posts -->
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-500"></div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-500 mb-2">January 1, 2026</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-emerald-600">
+                        <a href="#">New Year, New Tax Rules: What Changed in 2026</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">The Nigerian government has updated several tax provisions. Here's what you need to know.</p>
+                    <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Read more →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500"></div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-500 mb-2">December 20, 2025</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-emerald-600">
+                        <a href="#">Year-End Tax Planning Tips for Nigerians</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">Maximize your tax savings before the year ends with these expert strategies.</p>
+                    <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Read more →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500"></div>
+                <div class="p-6">
+                    <p class="text-sm text-gray-500 mb-2">December 10, 2025</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-emerald-600">
+                        <a href="#">Understanding Consolidated Relief Allowance</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">A deep dive into one of the most important tax relief mechanisms for Nigerian workers.</p>
+                    <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Read more →</a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+            <nav class="flex items-center space-x-2">
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">Previous</button>
+                <button class="px-4 py-2 bg-emerald-600 text-white rounded-lg">1</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">2</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">3</button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">Next</button>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Subscribe to Our Newsletter</h2>
+        <p class="text-gray-600 mb-8">Get the latest tax tips and updates delivered to your inbox</p>
+        <form class="flex gap-4 max-w-md mx-auto">
+            <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            <button type="submit" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+                Subscribe
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}

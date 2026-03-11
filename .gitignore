@@ -52,8 +52,23 @@ temp/
 # Uploaded files (processed statements are stored as JSON)
 uploads/
 *.pdf
+!**/templates/uploads/
 
 # Sensitive data
 *.pem
 *.key
 secrets/
+
+# Non-Taxeen project files
+skills/
+upload/
+.zscripts/
+Caddyfile
+bun.lock
+components.json
+eslint.config.mjs
+next-env.d.ts
+next.config.ts
+package.json
+worklog.md
+.dockerignore

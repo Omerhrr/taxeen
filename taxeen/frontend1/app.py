@@ -51,6 +51,16 @@ def datetime_format(value):
     except (ValueError, TypeError):
         return str(value)
 
+@app.template_filter('number_format')
+def number_format(value):
+    """Format number with commas"""
+    if value is None:
+        return "0"
+    try:
+        return f"{int(value):,}"
+    except (ValueError, TypeError):
+        return "0"
+
 # API helper functions
 def api_call(endpoint, method='GET', data=None, token=None):
     """Make API call to backend"""
